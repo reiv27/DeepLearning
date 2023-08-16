@@ -5,3 +5,4 @@ import matplotlib.pyplot as plt
 
 dataset = pd.read_csv('data/Mall_Customers.csv')
 
+print(dataset)
