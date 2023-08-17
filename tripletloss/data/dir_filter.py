@@ -1,7 +1,7 @@
 import os
 import shutil
 
-# Path to folder with class folders from "/"
+# Path to folder with class folders from root (/)
 dir_path = '/home/user/Documents/practice/tripletloss/data/my_data_2/train'
 
 for dir in os.listdir(dir_path):
