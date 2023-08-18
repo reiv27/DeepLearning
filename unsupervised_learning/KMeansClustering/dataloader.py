@@ -1,16 +1,16 @@
 import os
+from torch import is_tensor, float32
 from torchvision import datasets
-from torch import tensor, is_tensor
 from config import PATH, BATCH_SIZE
 from torchvision.io import read_image
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms import Compose, Resize, ToTensor, Normalize
+from torchvision.transforms import Compose, Resize, PILToTensor, ConvertImageDtype
 
 
 class FlowersDataset(Dataset):
     """Flowers Dataset."""
 
-    def __init__(self, root_dir, transform=None):
+    def __init__(self, root_dir, transform=False):
         self.root_dir = root_dir
         self.data_list = os.listdir(self.root_dir)
         self.transform = transform
@@ -22,27 +22,17 @@ class FlowersDataset(Dataset):
         if is_tensor(idx):
             idx = idx.tolist()
 
-        image_name = self.data_list[idx]
-        sample = read_image(f'{self.root_dir}/{image_name}')
-
+        image = self.data_list[idx]
+        sample = read_image(f'{self.root_dir}/{image}')
         if self.transform:
-            sample = self.transform(sample)
+            self.transform = Compose([ConvertImageDtype(float32),
+                                      Resize((100, 100))
+                                      ])
+        sample = self.transform(sample)
 
         return sample
 
 
-'''
-transform = Compose([
-    Resize((180, 200)),
-    ToTensor(),
-    #Normalize(mean, std)
-])
-'''
-
-data = FlowersDataset(PATH, Resize((224, 224)))
-
-print(data[0])
-
-
+data = FlowersDataset(PATH, transform=True)
+# print(data[0])
 train_dataloader = DataLoader(data, batch_size=BATCH_SIZE, shuffle=True)
-

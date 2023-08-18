@@ -4,9 +4,8 @@ import torch
 
 PATH = 'data/flowers'  # Your data folder path
 K = 5                  # Number of clusters or classes
-DISTANCE = 'euclidean'
 BATCH_SIZE = 32
-EPOCHS = 100
+EPOCHS = 1
 LR = 0.001
 DEVICE = (
     "cuda"
