@@ -1,4 +1,4 @@
-# Model of KMeaningClustering
+# Model oсf KMeaningClustering
 
 from torch import nn, optim
 from config import K, DEVICE, LR
@@ -22,30 +22,23 @@ class ConvNet(nn.Module):
             nn.Dropout(0.3)
         )
 
-        self.filters = 1024
+        self.filters = 3200
 
         self.fc = nn.Sequential(
-            nn.Linear(1024, 169),
+            nn.Linear(self.filters, 169),
             nn.PReLU(),
             nn.Linear(169, 2)
         )
 
     def forward(self, x):
-        #print(x.shape)
         x = self.conv(x)
-        #print(x.shape)
+        #print(f'after conv: {x.shape}')
         x = x.view(-1, self.filters)
-        #print(x.shape)
+        #print(f'after x.flatten: {x.shape}')
         x = self.fc(x)
-        #print(x.shape)
+        #print(f'after fc: {x.shape}')
         return x
 
-
-'''
-def init_weights(m):
-    if isinstance(m, nn.Conv2d):
-        nn.init.kaiming_normal_(m.weight)
-'''
 
 model = ConvNet().to(DEVICE)
 optimizer = optim.Adam(model.parameters(), LR)

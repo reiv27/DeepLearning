@@ -4,7 +4,7 @@ import torch
 
 PATH = 'data/flowers'  # Your data folder path
 K = 5                  # Number of clusters or classes
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 EPOCHS = 1
 LR = 0.001
 DEVICE = (

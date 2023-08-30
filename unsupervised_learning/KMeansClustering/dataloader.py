@@ -4,7 +4,7 @@ from torchvision import datasets
 from config import PATH, BATCH_SIZE
 from torchvision.io import read_image
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms import Compose, Resize, PILToTensor, ConvertImageDtype
+from torchvision.transforms import Compose, Resize, PILToTensor, ConvertImageDtype, Grayscale
 
 
 class FlowersDataset(Dataset):
@@ -26,7 +26,7 @@ class FlowersDataset(Dataset):
         sample = read_image(f'{self.root_dir}/{image}')
         if self.transform:
             self.transform = Compose([ConvertImageDtype(float32),
-                                      Resize((100, 100))
+                                      Resize((100, 100)),
                                       ])
         sample = self.transform(sample)
 
@@ -34,5 +34,4 @@ class FlowersDataset(Dataset):
 
 
 data = FlowersDataset(PATH, transform=True)
-# print(data[0])
 train_dataloader = DataLoader(data, batch_size=BATCH_SIZE, shuffle=True)

@@ -15,6 +15,6 @@ def train(dataloader, model):
         data = data.to(DEVICE)
         x = model(data)
         x = x.cpu().detach().numpy()
-
+        print(x.shape)
 
 train(train_dataloader, model)
