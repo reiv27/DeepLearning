@@ -4,7 +4,7 @@ from torchvision import datasets
 from config import PATH, BATCH_SIZE
 from torchvision.io import read_image
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms import Compose, Resize, PILToTensor, ConvertImageDtype, Grayscale
+from torchvision.transforms import Compose, Resize, PILToTensor, ConvertImageDtype
 
 
 class FlowersDataset(Dataset):
